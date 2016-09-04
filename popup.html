@@ -6,29 +6,26 @@
   <body>
     <style>
       .container {
-        max-height: 600px;
-        min-height: 300px;
-        width: 250px;
-        border: 2px solid rgba(0,0,0,0.3);
-        border-radius: 2px;
         background: white;
-      }
-      body {
+        border-radius: 2px;
+        border: 2px solid rgba(0,0,0,0.3);
         font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
-        font-size: 100%;
+        max-height: 600px;
+        text-align: center;
+        width: 250px;
       }
       #status {
-        /* avoid an excessively wide status text */
-        white-space: pre;
-        text-overflow: ellipsis;
-        overflow: hidden;
+        font-size: 80%;
         max-width: 400px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: pre;
       }
       .patient-list {
         max-height: 250px;
-        overflow-y: scroll;
-        overflow-x: hidden;
         max-width: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
       }
     </style>
     <div class="container">

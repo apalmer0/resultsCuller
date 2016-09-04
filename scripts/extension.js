@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('status').textContent = "Click below to remove results";
+  document.getElementById('status').textContent = "Click below to add delete option";
   const button = document.getElementById('changelinks');
   button.addEventListener('click', function () {
     $('#status').html('Delete option added');

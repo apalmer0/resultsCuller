@@ -11,18 +11,19 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
   const imgSrc = chrome.extension.getURL('images/remove.png');
 
   [].forEach.call(resultsList, function(header) {
+    header.style.position = 'relative';
     const clearButton = document.createElement("img");
     clearButton.setAttribute("class", "removeItem");
     clearButton.setAttribute("title", "delete this result");
     clearButton.src = imgSrc;
-    // header.insertBefore(clearButton, header.children[0]);
-    header.appendChild(clearButton);
+    header.insertBefore(clearButton, header.children[0]);
   });
 
   document.addEventListener('click', function(e) {
     e = e || window.event;
+    console.log(e.target.parentElement);
     const unwantedResult = e.target.parentElement;
     const allResults = e.target.parentElement.parentElement;
-    allResults.removeChild(unwantedResult);
+    // allResults.removeChild(unwantedResult);
   }, false);
 });
