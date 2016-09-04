@@ -1,0 +1,7 @@
+.removeItem {
+  cursor: pointer;
+  left: 10px;
+  position: absolute;
+  top: 10px;
+  z-index: 1;
+}
