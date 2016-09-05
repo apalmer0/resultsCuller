@@ -12,25 +12,23 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 
   document.addEventListener('click', function(e) {
     e = e || window.event;
-    if(e.target.className === 'removeItem') {
-      let unwantedResult = e.target.parentElement;
+    let element = e.target;
+    if(element.className === 'removeItem') {
+      let unwantedResult = element.parentElement;
       let allResults = unwantedResult.parentElement;
       allResults.removeChild(unwantedResult);
     } else {
-      let element = e.target.parentElement;
       getResultsList(element);
     }
   }, false);
 
   let getResultsList = function(element) {
     let parentElement = element.parentElement;
-    let elementSiblings = element.parentElement.children;
+    let elementSiblings = parentElement.children;
     let siblingsMatch = [].every.call(elementSiblings, function(currentElement) {
       return currentElement.class === element.class;
     });
     if(siblingsMatch && elementSiblings.length > 3) {
-      // arbitrarily decide that a 'results list' should have more than 3 results... this will help
-      // prevent the searching algorithm from returning menu options or things like that, maybe?
       const resultsList = elementSiblings;
       [].forEach.call(resultsList, function(header) {
         header.style.position = 'relative';
