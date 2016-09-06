@@ -7,8 +7,32 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
   style.type = 'text/css';
   style.href = chrome.extension.getURL('css/custom.css');
   (document.head || document.documentElement).appendChild(style);
-  const resultsList = document.querySelectorAll('a');
   const imgSrc = chrome.extension.getURL('images/remove.png');
+
+  const addDeleteButton = function(list) {
+    [].forEach.call(list, function(header) {
+      header.style.position = 'relative';
+      const clearButton = document.createElement("img");
+      clearButton.setAttribute("class", "removeItem");
+      clearButton.setAttribute("title", "delete this result");
+      clearButton.src = imgSrc;
+      header.insertBefore(clearButton, header.children[0]);
+    });
+  };
+
+  const getResultsList = function(element) {
+    let parentElement = element.parentElement;
+    let elementSiblings = parentElement.children;
+    let siblingsMatch = [].every.call(elementSiblings, function(currentElement) {
+      return currentElement.classList[0] === element.classList[0];
+    });
+    if(siblingsMatch && elementSiblings.length > 3) {
+      const resultsList = elementSiblings;
+      addDeleteButton(resultsList);
+    } else {
+      getResultsList(parentElement);
+    }
+  };
 
   document.addEventListener('click', function(e) {
     e = e || window.event;
@@ -21,25 +45,4 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
       getResultsList(element);
     }
   }, false);
-
-  let getResultsList = function(element) {
-    let parentElement = element.parentElement;
-    let elementSiblings = parentElement.children;
-    let siblingsMatch = [].every.call(elementSiblings, function(currentElement) {
-      return currentElement.class === element.class;
-    });
-    if(siblingsMatch && elementSiblings.length > 3) {
-      const resultsList = elementSiblings;
-      [].forEach.call(resultsList, function(header) {
-        header.style.position = 'relative';
-        const clearButton = document.createElement("img");
-        clearButton.setAttribute("class", "removeItem");
-        clearButton.setAttribute("title", "delete this result");
-        clearButton.src = imgSrc;
-        header.insertBefore(clearButton, header.children[0]);
-      });
-    } else {
-      getResultsList(parentElement);
-    }
-  };
 });
